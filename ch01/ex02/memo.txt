@@ -1,0 +1,4 @@
+1．Chromeの検索バーに以下を入力して
+    file:///C:/Users/r00000546/Documents/javascript-training/ch01/ex1.2/hello.html
+2．ChromeでF12を押して、開発者ツールを表示
+3．コンソールに"Hello, World!"が表示されることを確認

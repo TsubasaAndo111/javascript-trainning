@@ -1,0 +1,7 @@
+VSCodeのターミナルで以下を実行
+r00000546@A080954414 MINGW64 ~/Documents/javascript-training (main)
+$ cd ch01/ex1.1
+
+r00000546@A080954414 MINGW64 ~/Documents/javascript-training/ch01/ex1.1 (develop)
+$ node hello.js
+Hello, World!
