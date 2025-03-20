@@ -47,7 +47,6 @@ class Histogram {
     let lines = entries.map(
       ([l, n]) => `${l}: ${"#".repeat(Math.round(n))} ${n.toFixed(2)}%`
     );
-
     return lines.join("\n");
   }
 }
