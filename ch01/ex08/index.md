@@ -12,4 +12,4 @@ cat aa_kazokusama.txt | node index.js
 ```
 
 ## 結果
-![alt text]({ED270A20-816B-47B5-BDA4-545195192DFF}-1.png)
+![alt text](result.png)
