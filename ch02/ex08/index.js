@@ -1,3 +1,9 @@
+// 修正版問題：ASTをJSONで出力する
+import { parse } from "acorn";
+
+
+// 当初の問題：ASTを解析してソースコードのセミコロンを削除する
+/*
 import { parse } from "acorn";
 import { replace } from "estraverse";
 
@@ -56,3 +62,4 @@ function complexExample() {
 
 const results = removeSemicolons(code);
 console.log(results);
+*/

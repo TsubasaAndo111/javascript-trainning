@@ -1,9 +1,10 @@
 import { equalArrays } from "./index.js";
 
-describe("equalArrays", () => {
-  it("異なる2つの整数(1, 2)が入力されたとき", () => {
-    const actual = equalArrays(1, 2);
-    const expected = true;
-    expect(actual).toBe(expected);
-  });
+test("ch03-ex07", () => {
+  const x = 1; 
+  const y = 2;
+
+  expect(equalArrays(x, y)).toBe(true);
+  expect(x).not.toEqual(y);
 });
+

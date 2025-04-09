@@ -1,25 +1,41 @@
-/*
-Symbolを使用した場合は異なるKey値が発行されるため、それぞれ別のプロパティが設定される
-Symbol.forを使用した場合は、同じKey値が返ってくるため、プロパティの値が上書きされてしまう
-*/
+let obj1 = { x: 1 };
+obj1.y = 2; // obj1にプロパティを追加
+console.log(obj1); // { x: 1, y: 2 }
 
-let o = {};
+let obj2 = { x: 1, y: 2 };
+console.log(obj2); // { x: 1, y: 2 }
 
-let s1 = Symbol("test");
-let s2 = Symbol("test");
+console.log(obj1 === obj2); // false
 
-o[s1] = "s1";
-o[s2] = "s2";
+// ２つのオブジェクトの値が同じならtrueを返す関数
+export function equals(obj1, obj2) {
+  //  厳密等価
+  if (obj1 === obj2) {
+    console.log(1);
+    return true;
+  }
+  console.log(typeof obj1);
 
-console.log("s1:"+o[s1])
-console.log("s2:"+o[s2])
+  // nullではないか
+  if (obj1 === null || obj2 === null) {
+    return false;
+  }
 
-let s1_for = Symbol.for("test");
-let s2_for = Symbol.for("test");
+  // 引数がオブジェクトか
+  if (typeof obj1 !== "object" || typeof obj2 !== "object") {
+    return false;
+  }
 
-o[s1_for] = "s1_for";
-o[s2_for] = "s2_for";
+  // プロパティの長さ
+  if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+    return false;
+  }
 
-console.log(`s1_for === s2_for:${s1_for===s2_for}`);
-console.log("s1_for:"+o[s1_for])
-console.log("s2_for:"+o[s2_for])
+  // オブジェクトの値同士の比較
+  for (let key in obj1) {
+    if (!equals(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+  return true;
+}

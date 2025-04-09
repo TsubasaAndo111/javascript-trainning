@@ -56,5 +56,53 @@ describe("equals", () => {
     expect(actual).toBe(expected);
   });
 
+  it("厳密等価1", () => {
+    const actual = equals(42, 42);
+    const expected = true;
+    expect(actual).toBe(expected);
+  });
+
+  it("厳密等価2", () => {
+    const actual = equals(null, null);
+    const expected = true;
+    expect(actual).toBe(expected);
+  });
+
+  it("厳密等価ではない場合オブジェクト以外が指定1", () => {
+    const actual = equals({x: 42}, 42); 
+    const expected = false;
+    expect(actual).toBe(expected);
+  });
+
+  it("厳密等価ではない場合オブジェクト以外が指定2", () => {
+    const actual = equals(null, {x: 42});
+    const expected = false;
+    expect(actual).toBe(expected);
+  });
+
+  it("プロパティの数・名前が一致しない1", () => {
+    const actual = equals({x: 1}, {y: 1});
+    const expected = false;
+    expect(actual).toBe(expected);
+  });
+
+  it("プロパティの数・名前が一致しない2", () => {
+    const actual = equals({x: 1}, {x: 1, y: 1});
+    const expected = false;
+    expect(actual).toBe(expected);
+  });
+
+  it("プロパティの各値を equals で再帰的に比較1", () => {
+    const actual = equals({x: {y: {z: 10}}}, {x: {y: {z: 10}}});
+    const expected = true;
+    expect(actual).toBe(expected);
+  });
+
+  it("プロパティの各値を equals で再帰的に比較2", () => {
+    const actual = equals({x: {y: {z: 10}}}, {x: {y: {z: 10, w: 1}}});
+    const expected = false;
+    expect(actual).toBe(expected);
+  });
+
 
 });
