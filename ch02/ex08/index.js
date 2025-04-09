@@ -1,6 +1,24 @@
 // 修正版問題：ASTをJSONで出力する
 import { parse } from "acorn";
+function astJson(code) {
+  const ast = parse(code, { ecmaVersion: 2020 }); // ソースコードをAST（抽象構文木）に変換
+  return JSON.stringify(ast, null, 2);
+}
 
+const code1 = `
+let a
+a
+=
+3
+console.log(a)
+`;
+
+const code2 = `let a; a = 3; console.log(a);`;
+
+console.log("code:" + code1);
+console.log(astJson(code1));
+console.log("code:" + code2);
+console.log(astJson(code2));
 
 // 当初の問題：ASTを解析してソースコードのセミコロンを削除する
 /*
