@@ -1,0 +1,92 @@
+// index.test.js
+import { retryWithExponentialBackoff } from "./index.js";
+import { jest } from "@jest/globals";
+
+jest.useFakeTimers();
+
+describe("retryWithExponentialBackoff (async/await version)", () => {
+  let func;
+
+  beforeEach(() => {
+    func = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+    jest.clearAllMocks();
+  });
+
+  test("func が成功したらその値で resolve される", async () => {
+    func.mockResolvedValue("success");
+
+    const promise = retryWithExponentialBackoff(func, 3);
+
+    // タイマーが0秒でも即実行される
+    await jest.runAllTimersAsync();
+
+    await expect(promise).resolves.toBe("success");
+    expect(func).toHaveBeenCalledTimes(1);
+  });
+
+  test("func が失敗し続けると maxRetry 回で reject される", async () => {
+    func.mockRejectedValue(new Error("failed"));
+
+    const promise = retryWithExponentialBackoff(func, 2);
+
+    await jest.advanceTimersByTimeAsync(0); // 1回目
+    await jest.advanceTimersByTimeAsync(1000); // 2回目
+    await jest.advanceTimersByTimeAsync(2000); // 3回目（最大リトライ後）
+
+    await expect(promise).rejects.toThrow("failed");
+    expect(func).toHaveBeenCalledTimes(3);
+  });
+
+  test("途中で成功すれば resolve される", async () => {
+    func
+      .mockRejectedValueOnce(new Error("fail 1"))
+      .mockRejectedValueOnce(new Error("fail 2"))
+      .mockResolvedValueOnce("recovered");
+
+    const promise = retryWithExponentialBackoff(func, 5);
+
+    await jest.advanceTimersByTimeAsync(0); // 1回目
+    await jest.advanceTimersByTimeAsync(1000); // 2回目
+    await jest.advanceTimersByTimeAsync(2000); // 3回目成功
+
+    await expect(promise).resolves.toBe("recovered");
+    expect(func).toHaveBeenCalledTimes(3);
+  });
+
+  test("指数関数的に遅延している", async () => {
+    func
+      .mockRejectedValueOnce(new Error("1"))
+      .mockRejectedValueOnce(new Error("2"))
+      .mockRejectedValueOnce(new Error("3"))
+      .mockResolvedValueOnce("done");
+
+    const promise = retryWithExponentialBackoff(func, 5);
+
+    await jest.advanceTimersByTimeAsync(0); // 1回目
+    expect(func).toHaveBeenCalledTimes(1);
+
+    await jest.advanceTimersByTimeAsync(999);
+    expect(func).toHaveBeenCalledTimes(1); // まだ2回目来ない
+
+    await jest.advanceTimersByTimeAsync(1); // 2回目 (delay = 2^0 * 1000 = 1000)
+    expect(func).toHaveBeenCalledTimes(2);
+
+    await jest.advanceTimersByTimeAsync(1999);
+    expect(func).toHaveBeenCalledTimes(2); // まだ3回目来ない
+
+    await jest.advanceTimersByTimeAsync(1); // 3回目 (delay = 2^1 * 1000 = 2000)
+    expect(func).toHaveBeenCalledTimes(3);
+
+    await jest.advanceTimersByTimeAsync(3999);
+    expect(func).toHaveBeenCalledTimes(3); // まだ4回目来ない
+
+    await jest.advanceTimersByTimeAsync(1); // 4回目成功 (delay = 2^2 * 1000 = 4000)
+    expect(func).toHaveBeenCalledTimes(4);
+
+    await expect(promise).resolves.toBe("done");
+  });
+});
