@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>不安を煽るサイト</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f9f9f9;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      dl {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      dt {
+        font-weight: bold;
+        margin-top: 15px;
+      }
+      dd {
+        margin-left: 20px;
+        color: #555;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="color: red">ご登録ありがとうございます！！！</h1>
+    <h2>
+      登録料金<strong style="color: red">87000円</strong>が起算されました。
+    </h2>
+    <h2>
+      ご登録日より<strong style="color: red">2日以内</strong
+      >にお支払いください。
+    </h2>
+    <dl id="navigator-info">
+      <dt>あなたの登録情報</dt>
+      <dt>登録日</dt>
+      <dd id="date"></dd>
+      <dt>userAgent</dt>
+      <dd id="userAgent"></dd>
+
+      <dt>platform</dt>
+      <dd id="platform"></dd>
+
+      <dt>language</dt>
+      <dd id="language"></dd>
+
+      <dt>languages</dt>
+      <dd id="languages"></dd>
+
+      <dt>onLine</dt>
+      <dd id="onLine"></dd>
+
+      <dt>cookieEnabled</dt>
+      <dd id="cookieEnabled"></dd>
+
+      <dt>hardwareConcurrency</dt>
+      <dd id="hardwareConcurrency"></dd>
+
+      <dt>deviceMemory</dt>
+      <dd id="deviceMemory"></dd>
+
+      <dt>vendor</dt>
+      <dd id="vendor"></dd>
+
+      <dt>product</dt>
+      <dd id="product"></dd>
+
+      <dt>maxTouchPoints</dt>
+      <dd id="maxTouchPoints"></dd>
+
+      <dt>webdriver</dt>
+      <dd id="webdriver"></dd>
+
+      <dt>appName</dt>
+      <dd id="appName"></dd>
+
+      <dt>appVersion</dt>
+      <dd id="appVersion"></dd>
+
+      <dt>productSub</dt>
+      <dd id="productSub"></dd>
+    </dl>
+
+    <script>
+      document.getElementById("date").textContent = new Date().toLocaleString();
+      document.getElementById("userAgent").textContent = navigator.userAgent;
+      document.getElementById("platform").textContent = navigator.platform;
+      document.getElementById("language").textContent = navigator.language;
+      document.getElementById("languages").textContent = navigator.languages;
+      document.getElementById("onLine").textContent = navigator.onLine;
+      document.getElementById("cookieEnabled").textContent =
+        navigator.cookieEnabled;
+      document.getElementById("hardwareConcurrency").textContent =
+        navigator.hardwareConcurrency;
+      document.getElementById("deviceMemory").textContent =
+        navigator.deviceMemory;
+      document.getElementById("vendor").textContent = navigator.vendor;
+      document.getElementById("product").textContent = navigator.product;
+      document.getElementById("maxTouchPoints").textContent =
+        navigator.maxTouchPoints;
+      document.getElementById("webdriver").textContent = navigator.webdriver;
+      document.getElementById("appName").textContent = navigator.appName;
+      document.getElementById("appVersion").textContent = navigator.appVersion;
+      document.getElementById("productSub").textContent = navigator.productSub;
+    </script>
+  </body>
+</html>

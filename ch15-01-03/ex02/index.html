@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>動的 import テスト</title>
+    <style>
+      body {
+        color: black;
+        transition: color 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>これはテストページです</h1>
+    <p>初期表示では黒文字ですが、数秒後に赤くなれば import 成功です。</p>
+
+    <script type="module">
+      // 少し遅らせて動的インポートを開始
+      setTimeout(async () => {
+        const { $ } = await import(
+          "https://releases.jquery.com/git/jquery-git.module.min.js"
+        );
+        $("*").css("color", "red");
+        console.log("jQuery loaded dynamically and applied red color.");
+      }, 1000); // 1秒待ってから実行
+    </script>
+  </body>
+</html>
