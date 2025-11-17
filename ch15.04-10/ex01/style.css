@@ -1,0 +1,213 @@
+/* ==== Neon Style ToDo App ==== */
+
+/*全体設定
+背景を黒にして、基本文字色を白に。
+それっぽいフォント(Segoe UI", "Roboto", sans-serif)を指定、順番に利用できるフォントを探して適用
+全体を縦並び&中央ぞろえ(display: flex;でflexboxにして、flex-direction: column;で子要素を縦に並べ、align-items: centerで子要素を横方向に中央寄せ)
+画面は使途の余白を40px確保し、ウィンドウの高さ全体を使う
+*/
+body {
+  background-color: #0a0a0a;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+/* フォーム 
+入力欄とボタンを横並びに。
+要素間の余白を10pxに設定。
+下のリストの間に30pxのスペースをあける
+*/
+#new-todo-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+/* 入力欄 
+背景を透過させて、枠線をネオンブルーに。（暗闇の中に光だけが浮くようになる）
+角を丸くする。border-radius: 5px
+入力文字をネオンブルーして、paddingを上方向に10px,下方向に15px、fontsizeを1.1remに。(1rem=16px)
+box-shadowで光のにじみを表現、insetは内側発光。
+transitionでフォーカス時に滑らかに光が強まるように。（outline: noneでフォーカス時にブラウザが自動で描画する線を消す）
+*/
+#new-todo {
+  background: transparent;
+  border: 2px solid #0ff;
+  border-radius: 5px;
+  color: #0ff;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  width: 260px;
+  box-shadow:
+    0 0 10px #0ff,
+    inset 0 0 8px #0ff;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+/* 入力欄 フォーカス時
+フォーカス時に枠の光が強まるように、光る範囲を広げる
+*/
+#new-todo:focus {
+  box-shadow:
+    0 0 20px #0ff,
+    inset 0 0 12px #0ff;
+}
+
+/* ボタン
+背景を透過させて、枠線をネオンピンクに。（暗闇の中に光だけが浮くようになる）
+角を丸くする。border-radius: 5px
+入力文字をネオンピンクにして、paddingを適切に設定。
+text-shadowとbox-shadowでボタンの文字とボタンの枠が外側に光がにじむように。
+cursor: pointer;でホバー時にポインタが手の形になるように。
+transitionでホバー時の光の変化をなめらかに
+*/
+button {
+  background: transparent;
+  border: 2px solid #f0f;
+  border-radius: 5px;
+  color: #f0f;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-shadow:
+    0 0 5px #f0f,
+    0 0 10px #f0f;
+  box-shadow: 0 0 10px #f0f;
+  transition: all 0.3s ease;
+}
+
+/* ボタン ホバー時
+ホバー時に背景をネオンピンク、文字の色を黒にして、通常時とは反転させる。
+box-shadowでにじむ範囲を広げることで、光が強くなっているかのように演出。
+*/
+button:hover {
+  background: #f0f;
+  color: #000;
+  box-shadow:
+    0 0 20px #f0f,
+    0 0 30px #f0f;
+}
+
+/* ToDoリスト 
+list-style: none;でデフォルトの丸い点（リストマーカー）を消す。
+padding: 0;で不要な余白を除去。
+width: 340px;で全体の横幅を統一。
+*/
+#todo-list {
+  list-style: none;
+  padding: 0;
+  width: 340px;
+}
+
+/* ToDoリスト 各項目(li)
+background: rgba(255,255,255,0.05)で白をほとんど透過させることで
+黒の中に白が少しあるような感じになって、光が反射しているように。
+border: 1px solid #0ff;で各項目をネオンブルーで囲む。
+項目の角を丸めることで調整。
+余白を確保、横並び、縦方向の中央ぞろえ、左右の端に均等配置することで位置を調整。
+box-shadowで光のにじみを作る。
+transitionでホバーさせたときの変化をスムーズにするアニメーション指定。
+transformが要素の拡大・回転などの変化で、box-shadowが発光の強弱
+*/
+#todo-list li {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #0ff;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 10px #0ff;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+/* ToDoリスト 各項目(li)　ホバー時
+項目が拡大され、光のにじむ範囲が広くなる(ふんわり浮き上がるような感じ)
+*/
+#todo-list li:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 0 20px #0ff,
+    0 0 40px #0ff;
+}
+
+/* チェックボックス、タスク文字、削除文字をまとめたもの
+横並びと縦の中心をそろえ、左右均等に配置
+横幅を親要素<li>いっぱいに広げる
+*/
+.view {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* チェックボックス
+チェックボックスを拡大し、マークをネオンブルーに。
+ラベルとの間に隙間をつくる
+*/
+.toggle {
+  transform: scale(1.5);
+  accent-color: #0ff;
+  margin-right: 10px;
+}
+
+/* タスク文字
+横幅を最大限使い、光るテキストを表現
+*/
+.content {
+  flex: 1;
+  font-size: 1.1rem;
+  color: #0ff;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff;
+}
+
+/* 完了したタスク 
+チェック済みは落ち着いたグレーにして完了を表現。
+発光を弱めて背景と馴染ませる。
+*/
+.completed .content {
+  text-decoration: line-through;
+  color: #888;
+  text-shadow: 0 0 5px #888;
+  opacity: 0.7;
+}
+
+/* 削除ボタン 
+赤系で警告・削除感を演出。
+光る赤い×を表現。
+*/
+.destroy {
+  background: transparent;
+  border: none;
+  color: #f44;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-shadow:
+    0 0 8px #f44,
+    0 0 12px #f44;
+  transition:
+    transform 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+/* 削除ボタン ホバー時
+少し拡大して、光範囲を広げる
+*/
+.destroy:hover {
+  transform: scale(1.3);
+  text-shadow:
+    0 0 15px #f44,
+    0 0 25px #f44;
+}

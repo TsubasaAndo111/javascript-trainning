@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <title>Simple ToDo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="module" src="/ch15.04-10/ex02/index.js"></script>
+    <!-- Tailwind CLI により生成される CSS -->
+    <link rel="stylesheet" href="/ch15.04-10/ex02/style.css" />
+  </head>
+  <!-- === 以下、変更部分 === -->
+  <body
+    class="min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center py-10"
+  >
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">📝 Simple ToDo</h1>
+
+    <form id="new-todo-form" class="flex gap-3 mb-6 w-full max-w-md">
+      <input
+        type="text"
+        id="new-todo"
+        placeholder="What needs to be done?"
+        class="flex-1 rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        class="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 transition"
+      >
+        Add
+      </button>
+    </form>
+
+    <ul id="todo-list" class="w-full max-w-md space-y-3">
+      <!-- JavaScript で動的に追加される -->
+    </ul>
+
+    <template id="todo-template">
+      <li
+        class="bg-white rounded-lg shadow flex items-center justify-between px-4 py-2 border border-gray-200"
+      >
+        <div class="flex items-center gap-3">
+          <input
+            class="toggle w-5 h-5 accent-blue-500 cursor-pointer"
+            type="checkbox"
+          />
+          <label class="content text-lg cursor-pointer"></label>
+        </div>
+        <button
+          class="destroy text-red-500 hover:text-red-700 text-lg font-bold transition"
+          title="Delete"
+        >
+          ❌
+        </button>
+      </li>
+    </template>
+  </body>
+</html>
