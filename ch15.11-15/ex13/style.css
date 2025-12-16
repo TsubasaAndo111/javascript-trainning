@@ -1,0 +1,25 @@
+
+:root {
+  --bg: #f5f7fb;
+  --user-bg: #e0efff;
+  --assistant-bg: #dfffd6; /* スクリーンショットのような淡い緑 */
+  --text: #222;
+  --muted: #666;
+  --accent: #0b74de;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--text); }
+header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: white; border-bottom: 1px solid #ddd; }
+header h1 { font-size: 16px; margin: 0; }
+header .status { font-size: 12px; color: var(--muted); }
+main { padding: 8px; height: calc(100vh - 140px); overflow: hidden; }
+.chat { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 8px; }
+.message { max-width: 720px; padding: 10px 12px; border-radius: 10px; white-space: pre-wrap; line-height: 1.6; box-shadow: 0 1px 1px rgba(0,0,0,0.05); }
+.message.user { align-self: flex-end; background: var(--user-bg); }
+.message.assistant { align-self: flex-start; background: var(--assistant-bg); }
+.message.meta { font-size: 12px; color: var(--muted); background: transparent; box-shadow: none; }
+.composer { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; padding: 10px; background: white; border-top: 1px solid #ddd; }
+.composer input { padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; }
+.composer button { padding: 10px 16px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; }
+#send { background: var(--accent); color: white; }
+#stop { background: #f0f0f0; }

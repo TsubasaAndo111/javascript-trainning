@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <title>Canvas Demo (Web Worker 対応)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- メインスクリプト（ES Module） -->
+    <script type="module" src="/ch15.11-15/ex10/index.js"></script>
+
+    <!-- inline CSS -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+
+      input#image {
+        margin-bottom: 12px;
+      }
+
+      .row {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .canvas-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 0;
+      }
+
+      canvas {
+        border: 1px solid #ccc;
+        background: #fff;
+      }
+
+      p {
+        margin: 6px 0;
+        font-size: 14px;
+        color: #333;
+      }
+
+      #status {
+        min-height: 20px;
+        font-weight: bold;
+      }
+
+      /* スピナー（処理中インジケータ） */
+      .spinner {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #999;
+        border-top-color: #1e90ff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        visibility: hidden;
+      }
+      .spinner.active {
+        visibility: visible;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Web Worker で画像ガウシアンフィルタ</h2>
+    <input id="image" type="file" accept="image/*" />
+
+    <div class="row">
+      <div class="canvas-container">
+        <canvas id="original"></canvas>
+        <p>元画像</p>
+      </div>
+      <div class="canvas-container">
+        <canvas id="filtered"></canvas>
+        <p>フィルタ適用画像（Worker が生成）</p>
+      </div>
+      <div class="canvas-container">
+        <canvas id="anim" width="240" height="160"></canvas>
+        <p>アニメーション（画像変換中も動き続ければOK）</p>
+      </div>
+    </div>
+  </body>
+</html>

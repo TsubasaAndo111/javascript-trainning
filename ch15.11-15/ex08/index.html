@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebSocket リクエスト/レスポンス デモ</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 24px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .row input {
+        padding: 6px 8px;
+      }
+      .row .result {
+        font-size: 13px;
+        color: #333;
+      }
+      .row .error {
+        color: #b00020;
+      }
+      .controls {
+        margin: 16px 0;
+      }
+      .note {
+        font-size: 12px;
+        color: #666;
+        margin-top: 12px;
+      }
+      .muted {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WebSocket リクエスト/レスポンス デモ</h1>
+
+    <div id="inputs">
+      <div class="row">
+        <label>リクエスト本文 #1</label>
+        <input type="text" value="Request1" />
+        <div class="result muted">未送信</div>
+      </div>
+      <div class="row">
+        <label>リクエスト本文 #2</label>
+        <input type="text" value="Request2" />
+        <div class="result muted">未送信</div>
+      </div>
+      <div class="row">
+        <label>リクエスト本文 #3</label>
+        <input type="text" value="Request3" />
+        <div class="result muted">未送信</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="sendAll">同時に送信</button>
+      <label style="margin-left: 12px">
+        タイムアウト(ms):
+        <input id="timeoutMs" type="number" value="7000" style="width: 90px" />
+      </label>
+    </div>
+
+    <p class="note">
+      ※ サーバ転送時に 0–5 秒のランダム遅延が発生します。既定タイムアウトは 7
+      秒です。
+    </p>
+
+    <!-- 2つのモジュールのみ読み込み -->
+    <script type="module" src="./request.js"></script>
+    <script type="module" src="./response.js"></script>
+  </body>
+</html>

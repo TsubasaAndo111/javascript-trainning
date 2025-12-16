@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>OneDrive へアップロード（Graph Explorer トークン）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>OneDrive へファイルアップロード</h1>
+
+    <label>アクセストークン</label>
+    <textarea id="token" rows="4"></textarea>
+    <div class="small hint"></div>
+
+    <label
+      >アップロード先パス（OneDrive
+      ルートからの相対パス、末尾はフォルダ名）</label
+    >
+    <input id="destPath" type="text" value="Documents/" />
+
+    <label>ファイル選択</label>
+    <input id="fileInput" type="file" />
+
+    <button id="uploadBtn">アップロード</button>
+
+    <progress id="prog" value="0" max="100" style="display: none"></progress>
+    <div id="log" class="log"></div>
+  </body>
+  <script src="index.js"></script>
+</html>
