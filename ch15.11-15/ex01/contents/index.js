@@ -68,6 +68,12 @@ function appendToDoItem(task) {
 
   const toggle = document.createElement("input");
   toggle.type = "checkbox";
+
+  if (task.status === "completed") {
+    toggle.checked = true;
+    label.style.textDecorationLine = "line-through";
+  }
+
   // TODO: toggle が変化 (change) した際に API を呼び出してタスクの状態を更新し
   // 成功したら label.style.textDecorationLine を変更しなさい
   toggle.addEventListener("change", async () => {
