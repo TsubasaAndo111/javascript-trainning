@@ -1,0 +1,36 @@
+{
+  "name": "ch17",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write",
+    "format:check": "prettier --check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-flow": "^7.27.1",
+    "@pollyjs/adapter-node-http": "^6.0.6",
+    "@pollyjs/core": "^6.0.6",
+    "@pollyjs/persister-fs": "^6.0.6",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "flow-bin": "^0.300.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "webpack": "^5.105.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@pollyjs/adapter-fetch": "^6.0.7"
+  }
+}
